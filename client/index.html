@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente</title>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1>ENVIAR MENSAJE</h1>
+    <input type="text" placeholder="Envie un mensaje al broker" id="msg">
+    <input type="text" placeholder="Escriba un topico (default: General)" id="topic">
+    <button id="send">Enviar</button>
+
+    <h1>SUScribirse a topico</h1>
+    <script>
+        const socket = io("ws://localhost:5050");
+        const msg = document.getElementById("msg");
+        const topic = document.getElementById("topic");
+        const btn = document.getElementById("send");
+
+        function sendMsg(event){
+
+            const dataMsg = {
+                msg: msg.value,
+                topic: topic.value
+            };
+
+            event.preventDefault();
+            socket.emit("data", dataMsg);
+        }
+        socket.on("connect", () => {
+            btn.addEventListener("click", sendMsg)
+        });
+    </script>
+</body>
+
+</html>
