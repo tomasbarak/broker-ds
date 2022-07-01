@@ -1,55 +1,55 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server, {
-    cors:{
-        origin:'*',
+    cors: {
+        origin: '*',
     }
 });
 
 let connected_clients = [];
 let active_topic = {
     "general": [],
-    "ack" : []
+    "ack": []
 }
 
-function handleData(data){
+function handleData(data) {
     let topic = data.topic;
     let message = data.msg;
-    
-    if(data.topic === null || data.topic === undefined || data.topic === ""){
+
+    if (data.topic === null || data.topic === undefined || data.topic === "") {
         topic = "general";
     }
 
-    if(data.msg === null || data.msg === undefined){
+    if (data.msg === null || data.msg === undefined) {
         message = "";
     }
 
     sendToTopic(message, topic);
 }
 
-function handleSubscription(data){
+function handleSubscription(data) {
     console.log(data.topic, data.socket_id)
     subscribeToTopic(data.topic, data.socket_id)
 
     console.log(active_topic)
 }
 
-function ackLog(data){
+function ackLog(data) {
     console.log(data);
 }
 
-function sendToTopic(message, topic){
-    if(topic in active_topic){
-        active_topic[topic].forEach(function(socket_id){
+function sendToTopic(message, topic) {
+    if (topic in active_topic) {
+        active_topic[topic].forEach(function (socket_id) {
             let socket = io.sockets.sockets.get(socket_id);
             socket.emit("data-received", {
-                "topic" : topic,
-                "message" : message,
+                "topic": topic,
+                "message": message,
             });
         })
     }
 }
 
-function handleConnection(socket){
+function handleConnection(socket) {
     socket.on("data", handleData);
     socket.on("subscribe", handleSubscription);
     socket.on("disconnect", handleDisconnection);
@@ -59,29 +59,29 @@ function handleConnection(socket){
 
     subscribeToTopic("general", socket.id);
     subscribeToTopic("ack", socket.id);
-    function handleDisconnection(){
+    function handleDisconnection() {
         const index = connected_clients.indexOf(socket.id);
         connected_clients.splice(index, 1);
-        
+
         const keys = Object.keys(active_topic);
 
-        keys.forEach(function(topic){
+        keys.forEach(function (topic) {
             unsubscribeFromTopic(topic, socket.id);
         })
     }
 }
 
-function subscribeToTopic(topic, socket_id){
-    if(!(topic in active_topic)){
-        let arr  = [];
+function subscribeToTopic(topic, socket_id) {
+    if (!(topic in active_topic)) {
+        let arr = [];
         arr.push(socket_id);
         active_topic[topic] = arr;
-    }else{
+    } else {
         active_topic[topic].push(socket_id);
     }
 }
 
-function unsubscribeFromTopic(topic, socket_id){
+function unsubscribeFromTopic(topic, socket_id) {
     const index = connected_clients.indexOf(socket_id);
     active_topic[topic].splice(index, 1);
 }
@@ -89,7 +89,7 @@ function unsubscribeFromTopic(topic, socket_id){
 
 io.on('connection', handleConnection);
 
-server.listen(5050, function (){
+server.listen(5050, function () {
     console.log('Server listening on port 5050');
 });
 
