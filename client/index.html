@@ -7,60 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cliente</title>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <h1>ENVIAR MENSAJE</h1>
-    <input type="text" placeholder="Envie un mensaje al broker" id="msg">
-    <input type="text" placeholder="Escriba un topico (default: General)" id="topic">
-    <button id="send">Enviar</button>
+    <section>
+        <h1>ENVIAR MENSAJE</h1>
+        <input type="text" placeholder="Envie un mensaje al broker" id="msg">
+        <input type="text" placeholder="Escriba un topico (default: General)" id="topic">
+        <button id="send">Enviar</button>
 
-    <h1>SUScribirse a topico</h1>
-    <input type="text" placeholder="Escriba un topico" id="topic-to-subscribe">
-    <button id="subscribe">SUScribirse</button>
-
-    <script>
-        const socket = io("ws://localhost:5050");
-        const msg = document.getElementById("msg");
-        const topic = document.getElementById("topic");
-        const btn = document.getElementById("send");
-
-        const topicToSubscribe = document.getElementById("topic-to-subscribe");
-        const btnSubscribe = document.getElementById("subscribe");
-
-        function subscribe(event){
-            event.preventDefault();
-            socket.emit("subscribe", {
-                topic: topicToSubscribe.value,
-                socket_id: socket.id
-            });
-        }
-
-        function sendMsg(event){
-
-            const dataMsg = {
-                msg: msg.value,
-                topic: topic.value
-            };
-
-            event.preventDefault();
-            socket.emit("data", dataMsg);
-        }
-
-        socket.on("connect", () => {
-            btn.addEventListener("click", sendMsg)
-            btnSubscribe.addEventListener("click", subscribe)
-        });
-
-        socket.on("data-received", function(data){
-            console.log(data);
-            socket.emit("ack", {
-                socket_id: socket.id,
-                topic: data.topic,
-                msg: data.message,
-            });
-        })
-    </script>
+        <h1>SUScribirse a topico</h1>
+        <input type="text" placeholder="Escriba un topico" id="topic-to-subscribe">
+        <button id="subscribe">SUScribirse</button>
+    </section>
+    
+    <section id="sussy-chatty">
+        
+    </section>
+    <script src="broker.js"></script>
 </body>
 
 </html>

@@ -59,6 +59,7 @@ function sendToTopic(message, topic) {
             socket.emit("data-received", {
                 "topic": topic,
                 "message": message,
+                "socket_id": socket_id
             });
         })
     }
