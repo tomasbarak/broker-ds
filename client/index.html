@@ -8,24 +8,35 @@
     <title>Cliente</title>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <link rel="stylesheet" href="index.css">
+    <script defer src="broker.js"></script>
+    <script defer src="app.js"></script>
 </head>
 
 <body>
-    <section>
-        <h1>ENVIAR MENSAJE</h1>
-        <input type="text" placeholder="Envie un mensaje al broker" id="msg">
-        <input type="text" placeholder="Escriba un topico (default: General)" id="topic">
-        <button id="send">Enviar</button>
+    <section id="connection-section" class="app-section active">
+        <input type="text" id="url-input" placeholder="URL del broker...">
+        <a id="connect-button">Connect</a>
+    </section>
 
-        <h1>SUScribirse a topico</h1>
-        <input type="text" placeholder="Escriba un topico" id="topic-to-subscribe">
-        <button id="subscribe">SUScribirse</button>
+    <section id="loading-section" class="app-section">
+        <div class="loader"></div>
     </section>
-    
-    <section id="sussy-chatty">
-        
+
+    <section id="main-section" class="app-section">
+        <section id="left-main-panel" class="app-subsection">
+            <a class="subsection-title">Subscribed topics</a>
+        </section>
+        <section id="centre-main-panel" class="app-subsection">
+            <div id="msg-input-container">
+                <input type="text" id="message-input" placeholder="Message...">
+                <a id="send-button">Send</a>
+            </div>
+        </section>
+        <section id="right-main-panel" class="app-subsection">
+
+        </section>
     </section>
-    <script src="broker.js"></script>
+
 </body>
 
 </html>
