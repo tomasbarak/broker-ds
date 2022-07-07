@@ -8,8 +8,9 @@
     <title>Cliente</title>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <link rel="stylesheet" href="index.css">
-    <script defer src="broker.js"></script>
+    <link rel="stylesheet" href="notification.css">
     <script defer src="app.js"></script>
+    <script defer src="notification.js"></script>
 </head>
 
 <body>
@@ -24,16 +25,40 @@
 
     <section id="main-section" class="app-section">
         <section id="left-main-panel" class="app-subsection">
-            <a class="subsection-title">Subscribed topics</a>
+            <a class="subsection-title">
+                Subscribed topics
+                <a id="add-topic-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd"
+                            d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z">
+                        </path>
+                    </svg> Subscribe to new topic
+                </a>
+            </a>
+            <section id="topic-list">
+
+            </section>
         </section>
         <section id="centre-main-panel" class="app-subsection">
+            <div id="chat-header">
+                <a id="active-topic-label"></a>
+            </div>
+            <div id="conversation">
+
+            </div>
             <div id="msg-input-container">
                 <input type="text" id="message-input" placeholder="Message...">
-                <a id="send-button">Send</a>
+                <div id="send-btn-container">
+                    <a id="send-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="rgb(248, 248, 242)" viewBox="0 0 16 16" width="16"
+                            height="16">
+                            <path fill-rule="evenodd"
+                                d="M1.592 2.712L2.38 7.25h4.87a.75.75 0 110 1.5H2.38l-.788 4.538L13.929 8 1.592 2.712zM.989 8L.064 2.68a1.341 1.341 0 011.85-1.462l13.402 5.744a1.13 1.13 0 010 2.076L1.913 14.782a1.341 1.341 0 01-1.85-1.463L.99 8z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
             </div>
-        </section>
-        <section id="right-main-panel" class="app-subsection">
-
         </section>
     </section>
 

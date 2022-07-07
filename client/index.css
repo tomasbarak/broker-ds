@@ -6,6 +6,11 @@
     --main-text-color: rgb(248, 248, 242);
 }
 
+*{
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
 body,
 html {
     height: 100%;
@@ -48,7 +53,6 @@ html {
     background-color: var(--main-accent-color);
     color: var(--main-text-color);
     font-size: 1.5rem;
-    font-family: 'Roboto', sans-serif;
     font-weight: bolder;
     padding: 0.5rem;
     outline: none;
@@ -111,26 +115,26 @@ html {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 8px;
 }
 
 #left-main-panel{
-    width: calc(100vw/4);
+    width: calc(100vw/8 * 1);
     border-right: 1px solid var(--main-accent-color);
     background-color: var(--dark-darker-color);
+    padding: 8px 16px;
 }
 
 #centre-main-panel{
-    width: calc(100vw/2);
+    width: calc(100vw/8 * 7);
     border-right: 1px solid var(--main-accent-color);
     background-color: var(--dark-main-color);
     justify-content: flex-start;
     align-items: flex-start;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 #right-main-panel{
-    width: calc(100vw/4);
+    width: calc(100vw/8 * 1);
     border-right: 1px solid var(--main-accent-color);
     background-color: var(--dark-darker-color);
 }
@@ -153,28 +157,133 @@ html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: transparent;
+    background-color: var(--dark-darker-color);
     color: var(--main-text-color);
     font-size: 1.5rem;
     font-family: 'Roboto', sans-serif;
     font-weight: bolder;
     outline: none;
+    padding: 8px 16px;
+}
+#send-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    margin-left: 16px;
 }
 
 #message-input{
     width: 100%;
+    max-width: 800px;
     height: 100%;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: transparent;
+    background-color: rgba(248, 248, 242, 0.15);
     color: var(--main-text-color);
     font-size: 0.85rem;
     font-family: 'Roboto', sans-serif;
-    font-weight: bolder;
+    font-weight: normal;
     padding: 0.5rem;
     outline: none;
-    border: 1px solid var(--main-accent-color);
+    border-radius: 8px;
+}
+
+#send-btn{
+    display: flex;
+    width: 75px;
+    height: 100%;
+    background-color: var(--main-accent-color);
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#topic-list{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+    background-color: var(--dark-darker-color);
+    padding: 8px 16px;
+}
+
+.list-group-item{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--main-text-color);
+    background-color: var(--dark-darker-color);
+    padding: 8px 16px;
+    opacity: 0.5;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.list-group-item:hover{
+    opacity: 1;
+    color: var(--main-accent-color);
+    text-shadow: 0 0 5px var(--main-accent-color);
+}
+
+.active-topic{
+    opacity: 1;
+    color: var(--main-accent-color);
+    text-shadow: 0 0 5px var(--main-accent-color);
+}
+
+#conversation{
+    display: flex;
+    height: 100%;
+}
+
+#chat-header{
+    width: 100%;
+    background-color: var(--dark-darker-color);
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+#active-topic-label{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: var(--main-text-color);
+    margin-left: 16px;
+}
+
+#add-topic-btn{
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(248, 248, 242, 0.05);
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: lighter;
+    color: rgba(248, 248, 242, 0.75);
+}
+
+#add-topic-btn:hover{
+    transition: background-color 0.2s ease-in-out;
+    background-color: rgba(248, 248, 242, 0.15);
+}
+
+#add-topic-btn > svg{
+    fill: rgba(248, 248, 242, 0.75);
+    margin-right: 8px;
 }
