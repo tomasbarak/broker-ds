@@ -12,25 +12,24 @@
     overflow-y: auto;
     align-items: center;
     justify-content: flex-start;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .msg-container-mine{
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: 100px;
     width: 100%;
-    overflow: hidden;
     align-items: flex-end;
     justify-content: center;
     padding: 8px 16px;
+    overflow: visible;
 }
 
 .msg-container-other{
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 100px;
     width: 100%;
     align-items: flex-start;
     justify-content: center;
@@ -38,25 +37,31 @@
 }
 
 .msg-div{
-    height: 75px;
+    height: fit-content;
+    min-height: 60px;
     padding: 8px;
     flex-direction: column;
     position: relative;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     width: fit-content;
     border-radius: 8px;
     min-width: 100px;
+    max-width: 75%;
+    overflow: hidden;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .msg-container-mine > .msg-div{
     display: flex;
-    background-color: rgba(248, 248, 242, 0.15);
+    background-color: var(--main-accent-color);
+
 }
 
 .msg-container-other > .msg-div{
     display: flex;
-    background-color: var(--main-accent-color);
+    background-color: rgba(248, 248, 242, 0.15);
 }
 
 .msg-div > .msg-sender{
@@ -85,4 +90,7 @@
     color: var(--main-text-color);
     font-size: 1rem;
     font-weight: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
 }

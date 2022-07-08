@@ -53,7 +53,6 @@ connect_btn.addEventListener("click", (e) => {
 
     function handle_send_msg() {
         conversation.scrollTo(0, conversation.scrollHeight);
-        msg_input.value = "";
     }
 
     connection.on("disconnect", () => {
@@ -195,6 +194,7 @@ function send_msg_event(event) {
         };
         console.log(dataMsg);
         connection.emit("data", dataMsg);
+        msg_input.value = "";
     }
 }
 

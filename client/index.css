@@ -131,11 +131,13 @@ input::placeholder{
 
 #centre-main-panel{
     width: calc(100vw/8 * 7);
+    max-width: calc(100vw/8 * 7);
     border-right: 1px solid var(--main-accent-color);
     background-color: var(--dark-main-color);
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 #right-main-panel{

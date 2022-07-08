@@ -48,7 +48,7 @@ function ackLog(data) {
         let prev_data = fs.readFileSync('./ack.log');
         new_data_arr = JSON.parse(prev_data);
         new_data_arr.push(data);
-        //fs.writeFileSync('./ack.log', JSON.stringify(new_data_arr, null, 2))
+        fs.writeFileSync('./ack.log', JSON.stringify(new_data_arr, null, 2))
     }
 }
 
