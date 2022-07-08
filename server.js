@@ -90,13 +90,25 @@ function handleConnection(socket) {
 }
 
 function subscribeToTopic(topic, socket_id) {
-    if (!(topic in active_topic)) {
-        let arr = [];
-        arr.push(socket_id);
-        active_topic[topic] = arr;
-    } else {
-        active_topic[topic].push(socket_id);
-    }
+        if (!(topic in active_topic)) {
+            let arr = [];
+            arr.push(socket_id);
+            active_topic[topic] = arr;
+        } else {
+            if (!(active_topic[topic].includes(socket_id))) {
+                console.log("Topic", active_topic[topic]);
+                active_topic[topic].forEach((id) => {
+                    let socket = io.sockets.sockets.get(id);
+                    if (socket) {
+                        socket.emit("subscribed", {
+                            topic: topic,
+                            socket_id: socket_id
+                        });
+                    }
+                })
+                active_topic[topic].push(socket_id);
+            }
+        }
 }
 
 function unsubscribeFromTopic(topic, socket_id) {

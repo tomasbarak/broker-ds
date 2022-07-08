@@ -1,4 +1,4 @@
-function create_input_notification(callback, options = {title: "New Topic", input_placeholder: "Topic name..."}){
+function create_input_notification(callback, options = { title: "New Topic", input_placeholder: "Topic name..." }) {
     console.log
     const input_notification_background = document.createElement("div");
     input_notification_background.classList.add("input-notification-background");
@@ -13,6 +13,12 @@ function create_input_notification(callback, options = {title: "New Topic", inpu
     const input_text = document.createElement("input");
     input_text.classList.add("notification-input-text");
     input_text.setAttribute("placeholder", options.input_placeholder);
+    input_text.addEventListener("keyup", (event) => {
+        if (event.keyCode === 13) {
+            events.enter_event(event, callback.bind(null, input_text.value));
+            input_notification_background.remove();
+        }
+    });
 
     const input_submit = document.createElement("a");
     input_submit.classList.add("notification-input-submit");
@@ -30,11 +36,12 @@ function create_input_notification(callback, options = {title: "New Topic", inpu
         input_notification_background.remove();
         callback(null, true);
     });
-    
+
     input_notification.appendChild(notification_title);
     input_notification.appendChild(input_text);
     input_notification.appendChild(input_submit);
     input_notification.appendChild(close_button);
     input_notification_background.appendChild(input_notification);
     document.body.appendChild(input_notification_background);
+    input_text.focus();
 }
