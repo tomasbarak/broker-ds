@@ -15,6 +15,7 @@ let active_topic = {
 function handleData(data) {
     let topic = data.topic;
     let message = data.msg;
+    let sender_id = data.socket_id;
 
     if (data.topic === null || data.topic === undefined || data.topic === "") {
         topic = "general";
@@ -23,8 +24,9 @@ function handleData(data) {
     if (data.msg === null || data.msg === undefined) {
         message = "";
     }
-
-    sendToTopic(message, topic);
+    if (data.socket_id !== null || data.socket_id !== undefined) {
+        sendToTopic(message, topic, sender_id);
+    }
 }
 
 function handleSubscription(data) {
@@ -35,32 +37,32 @@ function handleSubscription(data) {
 }
 
 function ackLog(data) {
-    console.log(data);
     //Append to file
     let new_data_arr = [];
     const timestamp = new Date().getTime();
     data.timestamp = timestamp;
-    if(!fs.existsSync('./ack.log')){
+    if (!fs.existsSync('./ack.log')) {
         new_data_arr.push(data);
         fs.writeFileSync('./ack.log', JSON.stringify(new_data_arr, null, 2));
-    }else{
+    } else {
         let prev_data = fs.readFileSync('./ack.log');
         new_data_arr = JSON.parse(prev_data);
         new_data_arr.push(data);
-        console.log(new_data_arr)
-        fs.writeFileSync('./ack.log', JSON.stringify(new_data_arr, null, 2))
+        //fs.writeFileSync('./ack.log', JSON.stringify(new_data_arr, null, 2))
     }
 }
 
-function sendToTopic(message, topic) {
+function sendToTopic(message, topic, sender_id) {
     if (topic in active_topic) {
         active_topic[topic].forEach(function (socket_id) {
             let socket = io.sockets.sockets.get(socket_id);
-            socket.emit("data-received", {
-                "topic": topic,
-                "message": message,
-                "socket_id": socket_id
-            });
+            if (socket) {
+                socket.emit("data-received", {
+                    "topic": topic,
+                    "message": message,
+                    "socket_id": sender_id
+                });
+            }
         })
     }
 }

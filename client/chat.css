@@ -1,0 +1,88 @@
+:root{
+    --dark-main-color: rgb(47, 49, 54);
+    --dark-darker-color: rgb(32, 34, 37);
+    --main-accent-color: rgb(114, 137, 218);
+    --main-text-color: rgb(248, 248, 242);
+}
+#conversation{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.msg-container-mine{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100px;
+    width: 100%;
+    overflow: hidden;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 8px 16px;
+}
+
+.msg-container-other{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100px;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 8px 16px;
+}
+
+.msg-div{
+    height: 75px;
+    padding: 8px;
+    flex-direction: column;
+    position: relative;
+    align-items: flex-start;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 8px;
+    min-width: 100px;
+}
+
+.msg-container-mine > .msg-div{
+    display: flex;
+    background-color: rgba(248, 248, 242, 0.15);
+}
+
+.msg-container-other > .msg-div{
+    display: flex;
+    background-color: var(--main-accent-color);
+}
+
+.msg-div > .msg-sender{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: var(--main-text-color);
+    font-size: 0.5rem;
+    font-weight: normal;
+    
+}
+
+.msg-container-other > .msg-div > .msg-sender{
+    top: 8px;
+    left: -8px;
+}
+
+.msg-text{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    color: var(--main-text-color);
+    font-size: 1rem;
+    font-weight: normal;
+}
