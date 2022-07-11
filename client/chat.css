@@ -14,6 +14,7 @@
     justify-content: flex-start;
     box-sizing: border-box;
     overflow-x: hidden;
+    padding: 32px 16px;
 }
 
 .msg-container-mine{
@@ -95,7 +96,17 @@
     white-space: pre-wrap;
 }
 
-.join-msg-containe{
+.join-msg-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    overflow: visible;
+}
+
+.leave-msg-container{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -109,17 +120,36 @@
     width: 100%;
     color: var(--main-accent-color);
     font-weight: normal;
+    margin-right: 5px;
+}
+
+.leave-msg-id{
+    width: 100%;
+    color: rgb(204, 0, 0);
+    font-weight: normal;
+    margin-right: 5px;
 }
 
 .join-msg-text{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     color: var(--main-text-color);
     font-size: 0.75rem;
     font-weight: normal;
     white-space: nowrap;
-    margin-left: 4px;
+}
+
+.leave-msg-text{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-text-color);
+    font-size: 0.75rem;
+    font-weight: normal;
+    white-space: nowrap;
 }

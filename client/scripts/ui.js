@@ -65,6 +65,23 @@ const ui = {
         console.log(notif_container);
         return notif_container;
     },
+    "create_leave_message": (sender_id) => {
+        const notif_container = document.createElement("div");
+        const notif_text_id = document.createElement("font");
+        const notif_text = document.createElement("p");
+
+        notif_container.classList.add("leave-msg-container");
+        notif_text_id.classList.add("leave-msg-id");
+        notif_text.classList.add("leave-msg-text");
+
+        notif_text_id.innerHTML = sender_id;
+        notif_text.appendChild(notif_text_id);
+        notif_text.innerHTML += `has left the chat`;
+
+        notif_container.appendChild(notif_text);
+        console.log(notif_container);
+        return notif_container;
+    },
     "create_topic_list_element": (topic_name) => {
         const topic_item = document.createElement("a");
 
@@ -80,6 +97,11 @@ const ui = {
     },
     "add_join_notification": (data) => {
         const msg_container = ui.create_join_message(data.socket_id);
+        console.log(msg_container);
+        elements.conversation.appendChild(msg_container);
+    },
+    "add_leave_notification": (data) => {
+        const msg_container = ui.create_leave_message(data.socket_id);
         console.log(msg_container);
         elements.conversation.appendChild(msg_container);
     },

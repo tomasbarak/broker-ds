@@ -14,6 +14,7 @@ const events = {
         connection.on("disconnect", events.disconnect);
         connection.on("data-received", events.data_received);
         connection.on("subscribed", events.new_subscription_received);
+        connection.on("unsubscribed", events.new_unsubscription_received);
     },
     "connection_success": () => {
         connection_status = true;
@@ -68,6 +69,10 @@ const events = {
         console.log(data);
         events.on_join_notification(data);
     },
+    new_unsubscription_received: (data) => {
+        console.log("Unsubscribe", data);
+        events.on_leave_notification(data);
+    },
     "send_msg": () => {
         const msg = elements.inputs.message.value;
         if (msg.length > 0 && connection_status) {
@@ -89,11 +94,12 @@ const events = {
     "add_topic": () => {
         create_input_notification((result, cancelled) => {
             if (!cancelled) {
-                connection.emit("subscribe", {
-                    topic: result,
-                    socket_id: connection.id
-                });
                 if(!subscribed_topics.includes(result)) {
+                    connection.emit("subscribe", {
+                        topic: result,
+                        socket_id: connection.id
+                    });
+                    subscribed_topics.push(result);
                     ui.add_topic_to_list(result);
                 }
             }
@@ -117,6 +123,14 @@ const events = {
             console.log("on_join", data);
             if(data.topic === active_topic) {
                 ui.add_join_notification(data);
+            }
+        }
+    },
+    "on_leave_notification": (data) => {
+        if (data.socket_id !== connection.id) {
+            console.log("on_leave", data);
+            if(data.topic === active_topic) {
+                ui.add_leave_notification(data);
             }
         }
     }
